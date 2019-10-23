@@ -1,16 +1,11 @@
-require 'fileutils'
-require 'pathname'
-require_relative 'simple_cov_lcov/configuration'
+require 'simplecov'
 
-fail 'simplecov-lcov requires simplecov' unless defined?(SimpleCov)
+require_relative 'simplecov-workspace-lcov/version'
+require_relative 'simplecov-workspace-lcov/configuration'
 
 module SimpleCov
   module Formatter
-    # Custom Formatter to generate lcov style coverage for simplecov
     class WorkspaceLcovFormatter
-      # generate lcov style coverage.
-      # ==== Args
-      # _result_ :: [SimpleCov::Result] abcoverage result instance.
       def format(result)
         create_output_directory!
 
@@ -25,8 +20,10 @@ module SimpleCov
 
       class << self
         def config
-          @config ||= SimpleCovLcov::Configuration.new
+          @config ||= Configuration.new
+
           yield @config if block_given?
+
           @config
         end
       end
@@ -50,7 +47,7 @@ module SimpleCov
       end
 
       def root_path
-        self.class.config.workspace_path || SimpleCov.root
+        self.class.config.workspace_path
       end
 
       def create_output_directory!
