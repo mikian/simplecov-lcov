@@ -7,7 +7,7 @@ fail 'simplecov-lcov requires simplecov' unless defined?(SimpleCov)
 module SimpleCov
   module Formatter
     # Custom Formatter to generate lcov style coverage for simplecov
-    class LcovFormatter
+    class WorkspaceLcovFormatter
       # generate lcov style coverage.
       # ==== Args
       # _result_ :: [SimpleCov::Result] abcoverage result instance.
@@ -29,16 +29,6 @@ module SimpleCov
           yield @config if block_given?
           @config
         end
-
-        def report_with_single_file=(value)
-          deprecation_message = \
-            "#{caller(1..1).first} " \
-            "`#{LcovFormatter}.report_with_single_file=` is deprecated. " \
-            "Use `#{LcovFormatter}.config.report_with_single_file=` instead"
-
-          warn deprecation_message
-          config.report_with_single_file = value
-        end
       end
 
       private
@@ -57,6 +47,10 @@ module SimpleCov
 
       def single_report_path
         self.class.config.single_report_path
+      end
+
+      def root_path
+        self.class.config.workspace_path || SimpleCov.root
       end
 
       def create_output_directory!
@@ -82,7 +76,7 @@ module SimpleCov
       end
 
       def format_file(file)
-        filename = file.filename.gsub("#{SimpleCov.root}/", './')
+        filename = file.filename.gsub("#{root_path}/", './')
         "SF:#{filename}\n#{format_lines(file)}\nend_of_record\n"
       end
 

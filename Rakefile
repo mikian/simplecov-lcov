@@ -14,13 +14,13 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
-  gem.name = 'simplecov-lcov'
-  gem.homepage = 'http://github.com/fortissimo1997/simplecov-lcov'
+  gem.name = 'simplecov-workspace-lcov'
+  gem.homepage = 'http://github.com/mikian/simplecov-lcov'
   gem.license = 'MIT'
   gem.summary = %Q{Custom SimpleCov formatter to generate a lcov style coverage.}
   gem.description = %Q{Custom SimpleCov formatter to generate a lcov style coverage.}
-  gem.email = 'fortissimo1997@gmail.com'
-  gem.authors = ['fortissimo1997']
+  gem.email = ['mikko@mikian.com', 'fortissimo1997@gmail.com']
+  gem.authors = ['mikian', 'fortissimo1997']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

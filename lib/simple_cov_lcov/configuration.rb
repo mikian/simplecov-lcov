@@ -1,11 +1,16 @@
 module SimpleCovLcov
   class Configuration
     attr_writer :report_with_single_file
+    attr_writer :workspace_path
     attr_writer :output_directory
     attr_writer :lcov_file_name
 
     def report_with_single_file?
       !!@report_with_single_file
+    end
+
+    def workspace_path
+      @workspace_path
     end
 
     def output_directory
